@@ -1,4 +1,4 @@
-package Model;
+package bootstrap;
 
 import Commands.RpsCommands;
 import net.dv8tion.jda.api.JDA;
@@ -9,20 +9,18 @@ import javax.security.auth.login.LoginException;
 
 public class RbsMain {
     public static JDA jda;
+
     public static void main(String[] args){
+        String fileName = "src/main/resources/config/bot.properties";
         try {
-            jda = JDABuilder.createDefault("token")
+            Config config = new Config(fileName);
+            jda = JDABuilder.createDefault(config.getToken())
                     .addEventListeners(new RpsCommands())
                     .build();
             jda.awaitReady();
             System.out.println("Finished Building JDA");
-        }catch (LoginException e)
-        {
-            e.printStackTrace();
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 }
