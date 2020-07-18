@@ -3,25 +3,32 @@ package Model;
 import java.util.Random;
 
 public class Bot {
-    private States botState;
+    private States currentState;
     private Random random;
 
     public Bot(){
+        currentState = States.Empty;
         random = new Random();
     }
 
     public States returnBotState(){
         int randomNr = random.nextInt(3) + 1;
-        System.out.println(randomNr);
 
         if(randomNr == 1){
-            return States.Rock;
+            currentState = States.Rock;
+            return currentState;
         }else if(randomNr == 2){
-            return States.Paper;
+            currentState = States.Paper;
+            return currentState;
         }else if(randomNr == 3){
-            return States.Scissors;
+            currentState = States.Scissors;
+            return currentState;
         }
         return States.Empty;
+    }
+
+    public States getCurrentState(){
+        return currentState;
     }
 
 }

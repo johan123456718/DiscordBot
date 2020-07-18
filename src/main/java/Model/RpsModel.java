@@ -13,8 +13,11 @@ public class RpsModel extends ListenerAdapter {
     public void onMessageReceived(MessageReceivedEvent event){
         Message message = event.getMessage();
         System.out.println("Bots state: " + bot.returnBotState().toString());
-        if(message.getContentDisplay().equalsIgnoreCase(States.Rock.toString())){
-            System.out.println("rock");
+        System.out.println("User answer: "  + message.getContentDisplay());
+        System.out.println("Computer answer: " + bot.returnBotState().toString());
+        System.out.println("Computers state: " + bot.getCurrentState().toString());
+        if(message.getContentDisplay().equalsIgnoreCase(States.Rock.toString()) && bot.getCurrentState().equals(States.Scissors)){
+            System.out.println("Users winner");
         }
     }
 
