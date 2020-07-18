@@ -11,7 +11,7 @@ public class RbsMain {
     public static JDA jda;
 
     public static void main(String[] args){
-        String fileName = "src/main/resources/config/bot.properties";
+        String fileName = "src/main/resources/config/token.properties";
         try {
             Config config = new Config(fileName);
             jda = JDABuilder.createDefault(config.getToken())
