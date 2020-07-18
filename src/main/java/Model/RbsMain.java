@@ -11,7 +11,7 @@ public class RbsMain {
     public static JDA jda;
     public static void main(String[] args){
         try {
-            jda = JDABuilder.createDefault("NzMzOTkzMDAwNDk3MDUzNzE2.XxMMgg.c0y5gVW1znOMyUy9ntaXDqKx8uQ")
+            jda = JDABuilder.createDefault("token")
                     .addEventListeners(new RpsCommands())
                     .build();
             jda.awaitReady();
