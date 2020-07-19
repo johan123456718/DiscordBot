@@ -47,7 +47,7 @@ public class RpsCommands extends ListenerAdapter {
             sendMessageToDiscord("Please mention the user you want to play against!");
         } else {
             playersOpponent = opponents.get(0).getName();
-            Main.jda.addEventListener(new PVP(player, playersOpponent));
+            Main.jda.addEventListener(new PVPCommand(player, playersOpponent));
         }
     }
 
