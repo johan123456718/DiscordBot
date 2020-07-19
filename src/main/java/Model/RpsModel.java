@@ -1,6 +1,7 @@
 package Model;
 import bootstrap.Main;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -29,11 +30,21 @@ public class RpsModel extends ListenerAdapter {
         System.out.println("Move: " + move);
         System.out.println(messageIsValid);
 
-        if(messageIsValid) {
+        if(messageIsValid && game.getNrOfGames() < 3) {
             String gameMessage = game.play(Choices.valueOf(move));
+            String getWinner = game.getWinner();
+            int playerPointsMessage = game.getPlayerPoints();
+            int botPointsMessage = game.getBotPoints();
+            User getCurrentPlayer = event.getAuthor();
             channel.sendMessage("Bot's move: " + game.getBotMove().toString()).queue();
+            channel.sendMessage(getCurrentPlayer.getName() + " points: " + playerPointsMessage).queue();
+            channel.sendMessage("Bot "+ " points: " + botPointsMessage).queue(); //should probably fix instead of hardcoded
             // TO-DO: refactor this to prevent nulls from going into the play method
             channel.sendMessage(gameMessage).queue();
+
+            if(game.getNrOfGames() == 3){
+                channel.sendMessage(getWinner).queue();
+            }
         }
     }
 
