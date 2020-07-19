@@ -1,5 +1,6 @@
 package Commands;
 
+import Model.PVP;
 import bootstrap.Main;
 import Model.RpsModel;
 import net.dv8tion.jda.api.entities.Message;
