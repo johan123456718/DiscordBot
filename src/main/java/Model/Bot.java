@@ -3,32 +3,17 @@ package Model;
 import java.util.Random;
 
 public class Bot {
-    private States currentState;
+    private States[] states;
     private Random random;
 
+    private final int MOVES = 3;
+
     public Bot(){
-        currentState = States.Empty;
+        states = States.values();
         random = new Random();
     }
 
-    public States returnBotState(){
-        int randomNr = random.nextInt(3) + 1;
-
-        if(randomNr == 1){
-            currentState = States.Rock;
-            return currentState;
-        }else if(randomNr == 2){
-            currentState = States.Paper;
-            return currentState;
-        }else if(randomNr == 3){
-            currentState = States.Scissors;
-            return currentState;
-        }
-        return States.Empty;
+    public States getRandomMove(){
+        return states[random.nextInt(MOVES)];
     }
-
-    public States getCurrentState(){
-        return currentState;
-    }
-
 }

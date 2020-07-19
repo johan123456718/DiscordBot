@@ -7,13 +7,15 @@ import net.dv8tion.jda.api.JDABuilder;
 
 import javax.security.auth.login.LoginException;
 
-public class RbsMain {
+public class Main {
     public static JDA jda;
+    public static String prefix;
 
     public static void main(String[] args){
         String fileName = "src/main/resources/config/bot.properties";
         try {
             Config config = new Config(fileName);
+            prefix = config.getPrefix();
             jda = JDABuilder.createDefault(config.getToken())
                     .addEventListeners(new RpsCommands())
                     .build();
