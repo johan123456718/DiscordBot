@@ -3,17 +3,17 @@ package Model;
 import java.util.Random;
 
 public class Bot {
-    private States[] states;
+    private Choices[] states;
     private Random random;
 
     private final int MOVES = 3;
 
     public Bot(){
-        states = States.values();
+        states = Choices.values();
         random = new Random();
     }
 
-    public States getRandomMove(){
+    public Choices getRandomMove(){
         return states[random.nextInt(MOVES)];
     }
 }

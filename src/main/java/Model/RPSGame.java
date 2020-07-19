@@ -2,7 +2,7 @@ package Model;
 
 public class RPSGame {
     private Bot bot;
-    private States botMove;
+    private Choices botMove;
     private String playerName;
 
     public RPSGame(String playerName) {
@@ -10,7 +10,7 @@ public class RPSGame {
         this.playerName = playerName;
     }
 
-    public String play(States playerMove){
+    public String play(Choices playerMove){
         botMove = bot.getRandomMove();
         if(playerMove == null){
             return "Error! Wrong move entered!";
@@ -24,7 +24,7 @@ public class RPSGame {
     }
 
     // TO-DO: refactor this to prevent returning Null
-    public States getBotMove(){
+    public Choices getBotMove(){
         return botMove;
     }
 }
