@@ -16,10 +16,15 @@ public class Config {
     private void loadProperties(String fileName) throws Exception{
         InputStream in = new FileInputStream(fileName);
         properties.load(in);
+        in.close();
     }
 
     public String getToken(){
         return properties.getProperty("token");
+    }
+
+    public String getPrefix(){
+        return properties.getProperty("prefix");
     }
 
 }
