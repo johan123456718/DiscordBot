@@ -9,8 +9,12 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.RestAction;
 
+import java.nio.channels.Channel;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class RpsCommands extends ListenerAdapter {
@@ -39,21 +43,38 @@ public class RpsCommands extends ListenerAdapter {
     }
 
     private void startPVP(){
-        String player = event.getAuthor().getName();
+        User player = event.getAuthor();
+        String playerName = player.getName();
         List<User> opponents = event.getMessage().getMentionedUsers();
-        String playersOpponent;
+        User opponent;
+        String opponentName;
 
         if(opponents.size() == 0){
             sendMessageToDiscord("Please mention the user you want to play against!");
         } else {
-            playersOpponent = opponents.get(0).getName();
-            Main.jda.addEventListener(new PVPCommand(player, playersOpponent));
+            opponent = opponents.get(0);
+            opponentName = opponents.get(0).getName();
+            Main.jda.addEventListener(new PVPCommand(playerName, opponentName));
+            sendInstructionsToPlayers(Arrays.asList(player, opponent));
         }
     }
 
     private void sendMessageToDiscord(String message){
         MessageChannel channel = event.getChannel();
         channel.sendMessage(message).queue();
+    }
+
+    private void sendInstructionsToPlayers(List<User> players){
+        String instructions = "Do you want to play Rock Paper Scissors? " +
+                "\nRespond with `-rps yes` or `-rps no`" +
+                "\nPlayers: " + players.get(0).getName() + " and " + players.get(1).getName();
+
+        for(User player: players){
+            player.openPrivateChannel()
+                    .flatMap(channel -> channel.sendMessage(instructions))
+                    .delay(5, TimeUnit.MINUTES)
+                    .flatMap(Message::delete);
+        }
     }
 
 }
